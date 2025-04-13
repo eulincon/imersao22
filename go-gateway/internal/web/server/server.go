@@ -18,10 +18,10 @@ type Server struct {
 }
 
 func NewServer(accountService *service.AccountService, invoiceService *service.InvoiceService, port string) *Server {
-	router := chi.NewRouter()
 	return &Server{
-		router:         router,
+		router:         chi.NewRouter(),
 		accountService: accountService,
+		invoiceService: invoiceService,
 		port:           port,
 	}
 }
@@ -40,7 +40,6 @@ func (s *Server) ConfigureRoutes() {
 		s.router.Get("/invoice/{id}", invoiceHandler.GetByID)
 		s.router.Get("/invoice", invoiceHandler.ListByAccount)
 	})
-
 }
 
 func (s *Server) Start() error {
@@ -48,6 +47,5 @@ func (s *Server) Start() error {
 		Addr:    ":" + s.port,
 		Handler: s.router,
 	}
-	s.ConfigureRoutes()
 	return s.server.ListenAndServe()
 }

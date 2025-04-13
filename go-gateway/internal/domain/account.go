@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// Account representa uma conta com suas informações e saldo protegido para acessos concorrentes
 type Account struct {
 	ID        string
 	Name      string
@@ -20,12 +21,15 @@ type Account struct {
 	UpdatedAt time.Time
 }
 
+// generateAPIKey gera uma chave API segura usando crypto/rand
 func generateAPIKey() string {
+	// Usa crypto/rand para garantir chaves API seguras
 	b := make([]byte, 16)
 	rand.Read(b)
 	return hex.EncodeToString(b)
 }
 
+// NewAccount cria uma conta com ID único, API Key segura e timestamps iniciais
 func NewAccount(name, email string) *Account {
 	account := &Account{
 		ID:        uuid.New().String(),
@@ -40,7 +44,9 @@ func NewAccount(name, email string) *Account {
 	return account
 }
 
+// AddBalance modifica o saldo da conta de forma thread-safe
 func (a *Account) AddBalance(amount float64) {
+	// Mutex garante exclusão mútua no acesso ao saldo
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	a.Balance += amount
