@@ -44,6 +44,7 @@ func NewInvoice(accountID, description, paymentType string, amount float64, card
 		ID:             uuid.New().String(),
 		AccountID:      accountID,
 		Status:         StatusPending,
+		Amount:         amount,
 		Description:    description,
 		PaymentType:    paymentType,
 		CardLastDigits: lastDigits,
