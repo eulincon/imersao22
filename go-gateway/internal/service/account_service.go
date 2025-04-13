@@ -30,7 +30,7 @@ func (s *AccountService) CreateAccount(input dto.CreateAccountInput) (*dto.Accou
 	return &output, nil
 }
 
-func (s *AccountService) Updatebalance(apiKey string, amount float64) (*dto.AccountOutput, error) {
+func (s *AccountService) UpdateBalance(apiKey string, amount float64) (*dto.AccountOutput, error) {
 	account, err := s.repository.FindByAPIKey(apiKey)
 	if err != nil {
 		return nil, err
@@ -60,4 +60,4 @@ func (s *AccountService) FindByID(id string) (*dto.AccountOutput, error) {
 	}
 	output := dto.FromAccount(account)
 	return &output, nil
-}	
+}

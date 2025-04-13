@@ -12,7 +12,7 @@ type CreateAccountInput struct {
 }
 
 type AccountOutput struct {
-	Id        string    `json:"id"`
+	ID        string    `json:"id"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	Balance   float64   `json:"balance"`
@@ -27,7 +27,7 @@ func ToAccount(input CreateAccountInput) *domain.Account {
 
 func FromAccount(account *domain.Account) AccountOutput {
 	return AccountOutput{
-		Id:        account.ID,
+		ID:        account.ID,
 		Name:      account.Name,
 		Email:     account.Email,
 		Balance:   account.Balance,
